@@ -550,6 +550,7 @@ void Run()
         Serial.print(Input);
         Serial.print(",");
         Serial.println(Output);
+        lastLogTime = millis();
       }
 
       delay(100);
