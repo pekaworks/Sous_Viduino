@@ -89,6 +89,7 @@ PID_ATune aTune(&Input, &Output);
 //
 //Default increment values
 //
+
 float spincrement = 0.1;
 float tpincrement = 1.0;
 float tiincrement = 0.01;
@@ -304,20 +305,31 @@ void Tune_Sp()
   while(true)
   {
     buttons = ReadButtons();
-
-
+      
+    switch (shift)
+    {
+    case 1:
+    spincrement = 1.0;
+    lcd.setCursor(10,1);
+    lcd.print("x10");
+    break;
+    
+    case 0:
+    spincrement = 0.1;
+    lcd.setCursor(10,1);
+    lcd.print("   ");
+    break;
+    }
+    
     switch (buttons)
     {
-
-    case KEYPAD_SHIFT:
+      case KEYPAD_SHIFT:
       if (shift == 0)
       {
-        spincrement *= 10;
         shift = 1;
       }
       else
       {
-        spincrement /= 10;
         shift = 0;
       }
       delay(200);
@@ -352,17 +364,6 @@ void Tune_Sp()
       return;
     }
 
-    if (shift == 1)
-    {
-      lcd.setCursor(10,1);
-      lcd.print("x10");
-    }
-    else
-    {
-      lcd.setCursor(10,1);
-      lcd.print("   ");
-    }
-
     lcd.setCursor(0,1);
     lcd.print(Setpoint);
     lcd.print(" ");
@@ -384,20 +385,31 @@ void TuneP()
   while(true)
   {
     buttons = ReadButtons();
-
+      
+    switch (shift)
+    {
+    case 1:
+    tpincrement = 10.0;
+    lcd.setCursor(10,1);
+    lcd.print("x10");
+    break;
+    
+    case 0:
+    tpincrement = 1;
+    lcd.setCursor(10,1);
+    lcd.print("   ");
+    break;
+    }
 
     switch (buttons)
     {
-
     case KEYPAD_SHIFT:
       if (shift == 0)
       {
-        tpincrement *= 10;
         shift = 1;
       }
       else
       {
-        tpincrement /= 10;
         shift = 0;
       }
       delay(200);
@@ -433,17 +445,6 @@ void TuneP()
       return;
     }
 
-    if (shift == 1)
-    {
-      lcd.setCursor(10,1);
-      lcd.print("x10");
-    }
-    else
-    {
-      lcd.setCursor(10,1);
-      lcd.print("   ");
-    }
-
     lcd.setCursor(0,1);
     lcd.print(Kp);
     lcd.print(" ");
@@ -466,19 +467,31 @@ void TuneI()
   {
     buttons = ReadButtons();
 
-
+    switch (shift)
+    {
+    case 1:
+    tiincrement = 0.1;
+    lcd.setCursor(10,1);
+    lcd.print("x10");
+    break;
+    
+    case 0:
+    tiincrement = 0.01;
+    lcd.setCursor(10,1);
+    lcd.print("   ");
+    break;
+    }
+    
     switch (buttons)
     {
 
     case KEYPAD_SHIFT:
       if (shift == 0)
       {
-        tiincrement *= 10;
         shift = 1;
       }
       else
       {
-        tiincrement /= 10;
         shift = 0;
       }
       delay(200);
@@ -513,17 +526,6 @@ void TuneI()
       return;
     }
 
-    if (shift == 1)
-    {
-      lcd.setCursor(10,1);
-      lcd.print("x10");
-    }
-    else
-    {
-      lcd.setCursor(10,1);
-      lcd.print("   ");
-    }
-
     lcd.setCursor(0,1);
     lcd.print(Ki);
     lcd.print(" ");
@@ -545,18 +547,31 @@ void TuneD()
   while(true)
   {
     buttons = ReadButtons();
+    
+    switch (shift)
+    {
+    case 1:
+    tdincrement = 0.1;
+    lcd.setCursor(10,1);
+    lcd.print("x10");
+    break;
+    
+    case 0:
+    tdincrement = 0.01;
+    lcd.setCursor(10,1);
+    lcd.print("   ");
+    break;
+    }
 
     switch (buttons)
     {
     case KEYPAD_SHIFT:
       if (shift == 0)
       {
-        tdincrement *= 10;
         shift = 1;
       }
       else
       {
-        tdincrement /= 10;
         shift = 0;
       }
       delay(200);
@@ -585,12 +600,6 @@ void TuneD()
     {
       opState = RUN;
       return;
-    }
-
-    if (shift == 1)
-    {
-      lcd.setCursor(10,1);
-      lcd.print("x10");
     }
 
     lcd.setCursor(0,1);
